@@ -1,12 +1,8 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
+import { configDotenv } from 'dotenv';
+configDotenv();
 export default {
-  "env": process.env.NODE_ENV ,
-  "db": {
-    'mongoUri': process.env.MONGO_URI,
-  },
+  env: process.env.NODE_ENV,
+  db: process.env.MONGO_URI,
   "host": {
     "url": process.env.URL,
     "port": process.env.PORT,

@@ -5,12 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { ApolloDriver } from '@nestjs/apollo';
 
-const mongoUri = config.db.mongoUri;
+const mongoUri = config.db;
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
+      driver: ApolloDriver,
       typePaths: ['./**/*.graphql'],
       context: ({ req }) => ({ req }),
       playground: true,
