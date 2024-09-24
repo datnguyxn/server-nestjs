@@ -1,0 +1,41 @@
+scalar Email
+scalar Date
+
+type User {
+    id: ID!
+    email: String!
+    name: String!
+}
+
+enum UserRolesShared {
+    Normal
+    Admin
+}
+
+input UserInput {
+    email: String!
+    name: String!
+}
+
+input UpdateUser {
+    email: String!
+    password: String!
+    role: String!
+}
+
+type Auth {
+    email: String!
+    token: String!
+}
+
+type Query {
+    users: [User!]
+    user(email: Email!): User
+}
+
+type Mutation {
+    login(email: Email!, password: String!): Auth
+    register(email: Email!, password: String!): Auth
+    update(id: String!, user: UpdateUser!): User
+    delete(id: String!): User
+}
