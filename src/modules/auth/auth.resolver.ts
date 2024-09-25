@@ -36,6 +36,7 @@ export class AuthResolver {
       };
 
       const token = this.authService.signPayload(payload);
+      await this.authService.sendEmailVerification(email);
       return { email: response.email, token };
     } catch (e) {
       console.log(e);

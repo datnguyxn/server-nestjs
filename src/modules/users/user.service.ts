@@ -33,9 +33,6 @@ export class UserService {
 
   async create(userDTO: User): Promise<UserModel> {
     const email = userDTO.email;
-    console.log(TAG, 'email', email);
-    console.log(TAG, 'userDTO', userDTO);
-    console.log(TAG, 'userDTO.email', typeof userDTO.email);
     const user = await this.userModel.findOne({ email: email });
     if (user) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
