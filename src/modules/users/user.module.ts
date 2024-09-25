@@ -17,5 +17,4 @@ console.log(TAG);
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
 })
-export class UserModule {
-}
+export class UserModule {}

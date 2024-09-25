@@ -9,7 +9,6 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 
-
 const TAG = 'AppModule';
 console.log(TAG);
 const mongoUri = config.db;
@@ -38,5 +37,4 @@ const mongoUri = config.db;
     },
   ],
 })
-export class AppModule {
-}
+export class AppModule {}

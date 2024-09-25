@@ -1,8 +1,5 @@
 import { CustomScalar, Scalar } from '@nestjs/graphql';
-import {
-  GraphQLError,
-  Kind, ValueNode,
-} from 'graphql';
+import { GraphQLError, Kind, ValueNode } from 'graphql';
 
 const TAG = 'EmailScalar';
 console.log(TAG);
@@ -48,5 +45,4 @@ export class EmailScalar implements CustomScalar<string, string> {
 
     return ast.value;
   }
-
 }

@@ -11,7 +11,7 @@ export class RolesGuard extends AuthGuard('jwt') {
   }
 
   roles: string[];
-  user
+  user;
 
   getRequest(context: ExecutionContext) {
     const cxt = GqlExecutionContext.create(context);

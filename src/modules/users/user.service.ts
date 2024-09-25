@@ -1,4 +1,9 @@
-import { ForbiddenException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserModel } from '../../model/user.model';
@@ -14,8 +19,7 @@ const TAG = 'UserService';
 export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserModel>,
-  ) {
-  }
+  ) {}
 
   async showAll(): Promise<UserModel[]> {
     return await this.userModel.find();
@@ -55,7 +59,9 @@ export class UserService {
 
   async update(id: string, newUser: UpdateUserInput, role: UserRolesShared) {
     const user: User = await this.userModel.findOne({ _id: id });
-    const userWithEmail = await this.userModel.findOne({ email: newUser.email });
+    const userWithEmail = await this.userModel.findOne({
+      email: newUser.email,
+    });
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }

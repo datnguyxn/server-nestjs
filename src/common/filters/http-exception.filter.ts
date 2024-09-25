@@ -5,10 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 
-import {
-  GqlExceptionFilter,
-  GqlArgumentsHost,
-} from '@nestjs/graphql';
+import { GqlExceptionFilter, GqlArgumentsHost } from '@nestjs/graphql';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements GqlExceptionFilter {

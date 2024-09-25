@@ -11,24 +11,26 @@ export const UserSchema = new mongoose.Schema({
   userRole: { type: String, required: true },
 });
 
+UserSchema.pre(
+  'save',
+  async function (next: CallbackWithoutResultAndOptionalError) {
+    try {
+      if (!this.isModified('password')) {
+        return next();
+      }
 
-UserSchema.pre('save', async function(next: CallbackWithoutResultAndOptionalError) {
-  try {
-    if (!this.isModified('password')) {
+      const hashed = await bcrypt.hash(this.password, 10);
+      this.password = hashed;
       return next();
+    } catch (err) {
+      return next(err);
     }
-
-    const hashed = await bcrypt.hash(this.password, 10);
-    this.password = hashed;
-    return next();
-  } catch (err) {
-    return next(err);
-  }
-});
+  },
+);
 
 UserSchema.pre(
   'findOneAndUpdate',
-  async function(next: CallbackWithoutResultAndOptionalError) {
+  async function (next: CallbackWithoutResultAndOptionalError) {
     const updateFields = this.getUpdate();
 
     // Check if updateFields is an UpdateQuery object (i.e., a plain object with fields)
@@ -58,4 +60,5 @@ UserSchema.pre(
     }
 
     return next();
-  });
+  },
+);

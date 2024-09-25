@@ -32,5 +32,4 @@ export class DateScalar implements CustomScalar<string, Date | null> {
 
     return null;
   }
-
 }

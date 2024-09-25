@@ -9,8 +9,7 @@ console.log(TAG);
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   async signPayload(payload: Payload) {
     return sign(payload, config.jwt.secretOrKey, {

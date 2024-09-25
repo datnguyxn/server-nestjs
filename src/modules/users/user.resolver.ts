@@ -14,8 +14,7 @@ import { UserRolesShared } from '../../shared/user-roles.shared';
 @UseGuards(RolesGuard)
 @Resolver()
 export class UserResolver {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   // @Roles('Admin')
   @Query(() => [UserModel])
