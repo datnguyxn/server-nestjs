@@ -4,6 +4,9 @@ import {
   Kind, ValueNode,
 } from 'graphql';
 
+const TAG = 'EmailScalar';
+console.log(TAG);
+
 const EMAIL_ADDRESS_REGEX = new RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 );

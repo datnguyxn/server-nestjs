@@ -5,7 +5,9 @@ import { User } from '../../interfaces/user.interface';
 import { UserRolesShared } from '../../shared/user-roles.shared';
 import { AuthModel } from '../../model/auth.model';
 import { Payload } from '../../interfaces/payload.interface';
-import { ResponseError, ResponseSuccess } from '../../dto/response.dto';
+
+const TAG = 'AuthResolver';
+console.log(TAG);
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -14,17 +16,19 @@ export class AuthResolver {
     private userService: UserService,
   ) {}
 
-  @Mutation((returns) => AuthModel)
+  @Mutation(() => AuthModel)
   async register(
     @Args('email') email: string,
     @Args('password') password: string,
   ) {
+    console.log(TAG, 'email', typeof email);
     const user = {
       email,
       password,
       userRole: UserRolesShared.NORMAL,
     } as User;
     try {
+      console.log('user', user);
       const response = (await this.userService.create(user)) as User;
       const payload: Payload = {
         email: response.email,
@@ -32,16 +36,14 @@ export class AuthResolver {
       };
 
       const token = this.authService.signPayload(payload);
-      return new ResponseSuccess('User created', {
-        email: response.email,
-        token,
-      });
+      return { email: response.email, token };
     } catch (e) {
-      return new ResponseError('Error creating user', e);
+      console.log(e);
+      throw e;
     }
   }
 
-  @Mutation(returns => AuthModel)
+  @Mutation(() => AuthModel)
   async login(
     @Args('email') email: string,
     @Args('password') password: string,
@@ -53,9 +55,6 @@ export class AuthResolver {
       role: response.userRole,
     };
     const token = this.authService.signPayload(payload);
-    return new ResponseSuccess('User authenticated', {
-      email: response.email,
-      token,
-    });
+    return { email: response.email, token };
   }
 }

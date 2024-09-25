@@ -8,6 +8,8 @@ import * as bcrypt from 'bcrypt';
 import { UpdateUserInput } from '../../dto/update-user.input';
 import { UserRolesShared } from '../../shared/user-roles.shared';
 
+const TAG = 'UserService';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -26,8 +28,11 @@ export class UserService {
   }
 
   async create(userDTO: User): Promise<UserModel> {
-    const email = userDTO;
-    const user = await this.userModel.findOne({ email });
+    const email = userDTO.email;
+    console.log(TAG, 'email', email);
+    console.log(TAG, 'userDTO', userDTO);
+    console.log(TAG, 'userDTO.email', typeof userDTO.email);
+    const user = await this.userModel.findOne({ email: email });
     if (user) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
@@ -69,7 +74,7 @@ export class UserService {
       newUser.userRole != user.userRole &&
       newUser.userRole != null
     ) {
-      throw new ForbiddenException('Normal users can\'t change roles');
+      throw new ForbiddenException("Normal users can't change roles");
     }
 
     let userRole: UserRolesShared;

@@ -6,7 +6,12 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ApolloDriver } from '@nestjs/apollo';
+import { UserModule } from './modules/users/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
+
+const TAG = 'AppModule';
+console.log(TAG);
 const mongoUri = config.db;
 
 @Module({
@@ -14,15 +19,14 @@ const mongoUri = config.db;
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       typePaths: ['./**/*.graphql'],
+      logger: console,
       context: ({ req }) => ({ req }),
       playground: true,
-      resolverValidationOptions: {
-        requireResolversForResolveType: 'ignore',
-      },
     }),
     MongooseModule.forRoot(mongoUri),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [],
   providers: [
     {
       provide: APP_INTERCEPTOR,

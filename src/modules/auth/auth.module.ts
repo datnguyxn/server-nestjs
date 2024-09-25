@@ -7,6 +7,9 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { EmailScalar } from '../../scalars/email.scalar';
 import { DateScalar } from '../../scalars/date.scalar';
 
+const TAG = 'AuthModule';
+console.log(TAG);
+
 @Module({
   imports: [UserModule, PassportModule.register({ defaultStrategy: 'jwt' })],
   providers: [AuthResolver, AuthService, JwtStrategy, EmailScalar, DateScalar],

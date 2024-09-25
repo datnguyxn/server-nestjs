@@ -2,6 +2,9 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { CallbackWithoutResultAndOptionalError } from 'mongoose';
 
+const TAG = 'UserSchema';
+console.log(TAG);
+
 export const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },

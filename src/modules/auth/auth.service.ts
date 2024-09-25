@@ -4,6 +4,9 @@ import { Payload } from '../../interfaces/payload.interface';
 import { sign } from 'jsonwebtoken';
 import { default as config } from '../../config/config';
 
+const TAG = 'AuthService';
+console.log(TAG);
+
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService) {
