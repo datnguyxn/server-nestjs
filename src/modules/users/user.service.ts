@@ -116,4 +116,31 @@ export class UserService {
     }
     return await this.userModel.findByIdAndDelete(id);
   }
+
+  async setPassword(email: string, newPassword: string): Promise<boolean> {
+    try {
+      const user = await this.userModel.findOne({ email });
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+      const hashed = await bcrypt.hash(newPassword, 10);
+      user.password = hashed;
+      await user.save();
+      return true;
+    } catch (e) {
+      console.log(TAG, e);
+      throw new HttpException(
+        'Error setting password',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async checkPassword(email: string, password: string) {
+    const userFromDb = await this.userModel.findOne({ email: email });
+    if (!userFromDb)
+      throw new HttpException('LOGIN.USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+
+    return await bcrypt.compare(password, userFromDb.password);
+  }
 }

@@ -10,8 +10,7 @@ console.log(TAG);
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   async signPayload(payload: Payload) {
     return sign(payload, config.jwt.secretOrKey, {
@@ -48,11 +47,11 @@ export class AuthService {
           config.host.url +
           ':' +
           config.host.port +
-          '/auth/email/verify/'+
+          '/auth/email/verify/' +
           '>Click here to activate your account</a>', // html body
       };
 
-      var sent = await new Promise<boolean>(async function(resolve, reject) {
+      var sent = await new Promise<boolean>(async function (resolve, reject) {
         return transporter.sendMail(mailOptions, async (error, info) => {
           if (error) {
             console.log('Message sent: %s', error);
